@@ -36,9 +36,9 @@ ON DUPLICATE KEY UPDATE
 		return fmt.Errorf("failed to retrieve rows affected for upsert of username: %q", username)
 	}
 
-	if rowsAffected != 1 {
-		return fmt.Errorf("unexpected rowsAffected: %d for upsert of username: %q", rowsAffected, username)
+	if rowsAffected == 1 || rowsAffected == 2 {
+		return nil
 	}
 
-	return nil
+	return fmt.Errorf("unexpected rowsAffected: %d for upsert of username: %q", rowsAffected, username)
 }
